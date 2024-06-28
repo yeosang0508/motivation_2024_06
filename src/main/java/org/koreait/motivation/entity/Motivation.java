@@ -1,4 +1,4 @@
-package org.koreait;
+package org.koreait.motivation.entity;
 
 public class Motivation {
     private int id;
@@ -30,9 +30,6 @@ public class Motivation {
     }
 
     public String getSource() {
-        if(source.length() >= 5){
-            return source.substring(0, 5);
-        }
         return source;
     }
 
