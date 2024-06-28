@@ -11,15 +11,13 @@ public class App {
     }
 
 
-
     public void run() {
-        System.out.println("== motivation 실행 ==");
+        int id = 0;
 
-        int count = 0;
-
+        System.out.println("== motivation execution ==");
 
         while (true) {
-            System.out.print("명령어) ");
+            System.out.print("command) ");
             String cmd = sc.nextLine().trim();
 
             if (cmd.equals("exit")) {
@@ -30,14 +28,43 @@ public class App {
                 continue;
             }
 
+            if (cmd.equals("list")) {
+                System.out.println("== motivation list ==");
+                System.out.println(" id   //    motivation    //   source ");
+
+            }
+
             if (cmd.equals("add")) {
                 System.out.print("motivation : ");
                 String motivation = sc.nextLine();
                 System.out.print("source : ");
                 String source = sc.nextLine();
-                System.out.println( (++count) + "번 motivation이 등록 되었습니다");
+                System.out.println((++id) + "번 motivation이 등록 되었습니다");
+
+                List list = new List();
+                list.list(id, motivation, source);
+
             }
         }
+
+    }
+    static class call {
+        int id;
+        String motivation;
+        String source;
+
+
+    }
+
+}
+
+class List {
+    int id;
+
+     void list(int id, String motivation, String source) {
+
+        System.out.println(id + "   //   " + motivation + "   //   " + source);
+
 
 
     }
