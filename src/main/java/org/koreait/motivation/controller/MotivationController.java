@@ -31,7 +31,6 @@ public class MotivationController {
         lastId++; // 마지막 번호 증가
     }
 
-
     public void list() {
         if (motivations.size() == 0) {
             System.out.println("등록된 motivation 없음");
@@ -51,22 +50,9 @@ public class MotivationController {
 
             System.out.printf("   %d  //    %s     //    %s  \n", motivation.getId(), motivation.getSource(), motivation.getBody());
         }
-
     }
-
 
     public void delete(String cmd) {
-        for (int i = 0; i < motivations.size(); i++) {
-            if (cmd.equals("delete?id=" + motivations.get(i).getId())) {
-                motivations.remove(i);
-
-                System.out.println((i + 1) + "번이 motivaiton이 삭제되었습니다.");
-            }
-
-        }
-
 
     }
-
-
 }

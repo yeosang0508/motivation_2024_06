@@ -9,8 +9,6 @@ public class Motivation {
         this.id = id;
         this.body = body;
         this.source = source;
-
-
     }
 
     public int getId() {
