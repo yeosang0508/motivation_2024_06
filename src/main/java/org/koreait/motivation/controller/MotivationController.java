@@ -1,6 +1,8 @@
 package org.koreait.motivation.controller;
 
+
 import org.koreait.Container;
+import org.koreait.Rq;
 import org.koreait.motivation.entity.Motivation;
 
 import java.util.ArrayList;
@@ -52,7 +54,8 @@ public class MotivationController {
         }
     }
 
-    public void delete(String cmd) {
+    public void delete(Rq rq) {
+        System.out.println("delete 실행");
 
     }
 }

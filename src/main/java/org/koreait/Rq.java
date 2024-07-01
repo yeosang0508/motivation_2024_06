@@ -6,6 +6,15 @@ import java.util.Map;
 public class Rq {
     private String actionMethod;
     private Map<String, String> params;
+    private String errMsg = "";
+
+    @Override
+    public String toString() {
+        return "Rq{" +
+                "actionMethod='" + actionMethod + '\'' +
+                ", params=" + params +
+                '}';
+    }
 
     //Rq == Request
     public Rq(String cmd) {
@@ -18,8 +27,6 @@ public class Rq {
 
         if (cmdBits.length == 1) {
             return;
-
-            // add나 list는 그 뒤에 나오지 않으므로 명령어 확인해가 나오지 않도록 return 시킨다.
         }
 
         String[] paramBits;
@@ -33,7 +40,15 @@ public class Rq {
 
         for (String paramStr : paramBits) {
             String[] paramStrBits = paramStr.split("=", 2);
+
             String key = paramStrBits[0];
+            if (key.equals("id") == false) {
+                System.out.println("오타 있음(id)");
+                errMsg = "오타 있음(id)";
+
+                // 명령어를 작성할 때 오류 발생시 걸러내기 위해 errMsg String을 위에 만들고 get으로 만들어
+                // errMsg만 꺼내어 return 시킬 수 있게끔
+            }
             String value = paramStrBits[1];
             params.put(key, value);
         }
@@ -47,4 +62,7 @@ public class Rq {
         return params.get(paramName);
     }
 
+    public String getErrMsg() {
+        return errMsg;
+    }
 }
