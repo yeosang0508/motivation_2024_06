@@ -1,13 +1,10 @@
 package org.koreait.motivation.controller;
 
-
 import org.koreait.Container;
 import org.koreait.Rq;
 import org.koreait.motivation.entity.Motivation;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MotivationController {
@@ -76,25 +73,13 @@ public class MotivationController {
         }
 
         motivations.remove(motivation);
-
         System.out.printf("%d번 motivation을 삭제했습니다\n", id);
     }
 
-
-    private Motivation findById(int id) {
-        for (Motivation motivation : motivations) {
-
-            if (motivation.getId() == id) {
-                return motivation;
-            }
-        }
-        return null;
-    }
-
     public void edit(Rq rq) {
+        System.out.println("edit 실행");
+
         int id;
-        String source;
-        String body;
 
         try {
             id = Integer.parseInt(rq.getParams("id"));
@@ -105,26 +90,36 @@ public class MotivationController {
 
         Motivation motivation = findById(id);
 
-        if(motivation == null) {
-            System.out.printf("%d번 motivation은 없다\n", id);
+        if (motivation == null) {
+            System.out.printf("%d번 motivation은 없어\n", id);
             return;
         }
+        // 불러온 motivation의 인스턴스변수에 접근
+        System.out.println("body(기존) : " + motivation.getBody());
+        System.out.println("source(기존) : " + motivation.getSource());
 
+        System.out.print("body : ");
+        String body = Container.getScanner().nextLine();
+        System.out.print("source : ");
+        String source = Container.getScanner().nextLine();
 
-        System.out.print("body: ");
-        body = motivation.getBody();
-        body = Container.getScanner().nextLine();
-        System.out.print("source: ");
-        source = motivation.getSource();
-        source = Container.getScanner().nextLine();
+        // 불러온 motivation의 인스턴스변수 수정
+        motivation.setBody(body);
+        motivation.setSource(source);
 
-        // 내용을 입력 받기만 하고 그 내용을 받아주지는 못함..
-        // 첫번째 motivation.getBody()를 하지 않아도 됨..
-        // id로 findById에서 같은 내용을 찾고 그 motivation을 return 시켜주었기 때문에
-
-
-
-        System.out.printf("%d번 motivaiton이 수정 되었습니다.\n", id);
+        System.out.printf("%d번 motivation을 수정했습니다\n", id);
 
     }
+
+    // 입력된 id와 일치하는 motivation 찾기
+    private Motivation findById(int id) {
+        for (Motivation motivation : motivations) {
+            if (motivation.getId() == id) {
+                return motivation;
+            }
+        }
+        return null;
+    }
+
+
 }
