@@ -5,6 +5,7 @@ public class Motivation {
     private String body;
     private String source;
 
+    // 조립하기 위한 클래스
     public Motivation(int id, String body, String source) {
         this.id = id;
         this.body = body;

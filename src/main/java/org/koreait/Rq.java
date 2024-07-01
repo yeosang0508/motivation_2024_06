@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Rq {
+    // 명령어를 가공해서 쓸수 있게 만들어주는
+    // 해당 요청을 정리해서 전달해주는 클래스 (요청에 대한 처리)
+    // 문자열을 잘라주는 전문가
     private String actionMethod;
     private Map<String, String> params;
     private String errMsg = "";
@@ -18,6 +21,7 @@ public class Rq {
 
     //Rq == Request
     public Rq(String cmd) {
+        // new Rq 할때 실행되는 함수
         // parsing
         String[] cmdBits = cmd.split("\\?", 2);
 

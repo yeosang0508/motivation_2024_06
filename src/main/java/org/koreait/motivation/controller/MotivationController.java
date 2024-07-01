@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MotivationController {
-
+//
     int lastId;
     List<Motivation> motivations;
+    // 가변적이기에 arraylist 사용
+
+    // 메서드내가 아니기에 지역변수가 아닌 전역변수
+    // 프로그램이 끝나면 사라짐 (영속성이 없다)
+
 
     public MotivationController() {
         lastId = 0;

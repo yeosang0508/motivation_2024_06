@@ -4,7 +4,7 @@ import org.koreait.motivation.controller.MotivationController;
 import org.koreait.system.controller.SystemController;
 
 public class App {
-
+// Main 메서드 실행용 함수
     byte system_status = 1;
 
     public void run() {
@@ -14,6 +14,7 @@ public class App {
         MotivationController motivationController = new MotivationController();
 
         while (system_status == 1) {
+            // 계속해서 명령어 받기
             System.out.print("command) ");
             String cmd = Container.getScanner().nextLine().trim();
 
@@ -28,7 +29,7 @@ public class App {
                 continue;
 
             }
-
+            // 라우터 ( 그에 맞는 기능이 실행되도록)
             switch (rq.getActionMethod()) {
                 case "exit":
                     systemController.exit();
