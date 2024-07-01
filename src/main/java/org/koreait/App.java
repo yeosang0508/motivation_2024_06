@@ -27,7 +27,6 @@ public class App {
             if (rq.getErrMsg().equals("오타 있음(id)")) {
                 continue;
 
-                // getErrMsg가 오타 있음이면 while문으로 continue
             }
 
             switch (rq.getActionMethod()) {

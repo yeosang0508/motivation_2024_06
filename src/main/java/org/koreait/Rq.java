@@ -46,8 +46,6 @@ public class Rq {
                 System.out.println("오타 있음(id)");
                 errMsg = "오타 있음(id)";
 
-                // 명령어를 작성할 때 오류 발생시 걸러내기 위해 errMsg String을 위에 만들고 get으로 만들어
-                // errMsg만 꺼내어 return 시킬 수 있게끔
             }
             String value = paramStrBits[1];
             params.put(key, value);
