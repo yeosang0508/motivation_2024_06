@@ -3,12 +3,9 @@ package org.koreait;
 import org.koreait.motivation.controller.MotivationController;
 import org.koreait.system.controller.SystemController;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 public class App {
+
+    byte system_status = 1;
 
     public void run() {
         System.out.println("== motivation execution ==");
@@ -16,39 +13,40 @@ public class App {
         SystemController systemController = new SystemController();
         MotivationController motivationController = new MotivationController();
 
-        while (true) {
+        while (system_status == 1) {
             System.out.print("command) ");
             String cmd = Container.getScanner().nextLine().trim();
 
-            if (cmd.equals("exit")) {
-                systemController.exit();
-                break;
-            } else if (cmd.length() == 0) {
+            if (cmd.length() == 0) {
                 System.out.println("명령어 입력해");
                 continue;
             }
 
-            if (cmd.equals("add")) {
-                motivationController.add();
-            } else if (cmd.equals("list")) {
-                motivationController.list();
-            } else if (cmd.startsWith("delete")) {
+            Rq rq = new Rq(cmd);
 
-                Rq rq = new Rq(cmd);
-
-                // (delete? id =)이라는 형태는 delete말고 다른 기능을 실행할때 필요하다.
-                // 다른 기능을 쓸때에도 똑같은 기능이 필요한데 같은 코드를 쓰게 되면 비효율적이기에
-                // 이를 담을수 있는 Request인 Rq 클래스를 만들어서 그안에 넣고 가져와서 사용
-
-                System.out.println(rq.getActionMethod());
-                System.out.println(rq.getParams("id"));
-                System.out.println(rq.getParams("source"));
-                System.out.println(rq.getParams("motivation"));
-
-//                motivationController.delete();
-            } else {
-                System.out.println("사용할 수 없는 명령어입니다");
+            switch (rq.getActionMethod()) {
+                case "exit":
+                    systemController.exit();
+                    system_status = 0;
+                    // while 문이 true 였을 때 아래의 break가 switch만 빠져나오게 하는 코드이므로
+                    // while 문에 system_status르 넣어주고 exit 실행되었을 때 0이 되도록 하여 false로 만들어 while문을
+                    // 빠져나갈수 있도록 만들었다.
+                    break;
+                case "add":
+                    motivationController.add();
+                    break;
+                case "list":
+                    motivationController.list();
+                    break;
+                case "delete":
+//                    motivationController.delete();
+                default:
+                    System.out.println("사용할 수 없는 명령어입니다");
+                    break;
             }
+
+            //  라우팅 코드 간결화로 어떤 기능이 들어왔는지 switch로 묶어줌으로써
+            // 한눈에 어떻게 실행될지 보인다.
         }
     }
 }
