@@ -5,7 +5,9 @@ import org.koreait.Container;
 import org.koreait.Rq;
 import org.koreait.motivation.entity.Motivation;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MotivationController {
@@ -61,8 +63,6 @@ public class MotivationController {
 
         try {
             id = Integer.parseInt(rq.getParams("id"));
-            // try-catch를 하지 않을 시 정수를 입력하지 않았을 경우 에러 발생하므로 try-catch 사용하여
-            // 에러발생시 정수 입력 오류라는 문구가 뜨도록 설정
         } catch (NumberFormatException e) {
             System.out.println("정수 입력 오류");
             return;
@@ -77,19 +77,54 @@ public class MotivationController {
 
         motivations.remove(motivation);
 
-        // 인덱스를 지운것이 아닌 object를 지움으로써 id 뿐아니라 다른
-        // source나 motivation도 같이 지움
         System.out.printf("%d번 motivation을 삭제했습니다\n", id);
     }
 
+
     private Motivation findById(int id) {
         for (Motivation motivation : motivations) {
-            // arraylist 배열에 하나하나 비교하여 찾고자하는 id가 있으면 return 없으면 null
 
             if (motivation.getId() == id) {
                 return motivation;
             }
         }
         return null;
+    }
+
+    public void edit(Rq rq) {
+        int id;
+        String source;
+        String body;
+
+        try {
+            id = Integer.parseInt(rq.getParams("id"));
+        } catch (NumberFormatException e) {
+            System.out.println("정수 입력 오류");
+            return;
+        }
+
+        Motivation motivation = findById(id);
+
+        if(motivation == null) {
+            System.out.printf("%d번 motivation은 없다\n", id);
+            return;
+        }
+
+
+        System.out.print("body: ");
+        body = motivation.getBody();
+        body = Container.getScanner().nextLine();
+        System.out.print("source: ");
+        source = motivation.getSource();
+        source = Container.getScanner().nextLine();
+
+        // 내용을 입력 받기만 하고 그 내용을 받아주지는 못함..
+        // 첫번째 motivation.getBody()를 하지 않아도 됨..
+        // id로 findById에서 같은 내용을 찾고 그 motivation을 return 시켜주었기 때문에
+
+
+
+        System.out.printf("%d번 motivaiton이 수정 되었습니다.\n", id);
+
     }
 }

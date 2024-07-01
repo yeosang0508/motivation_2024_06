@@ -45,7 +45,6 @@ public class Rq {
             if (key.equals("id") == false) {
                 System.out.println("오타 있음(id)");
                 errMsg = "오타 있음(id)";
-
             }
             String value = paramStrBits[1];
             params.put(key, value);
